@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: woofwoof
+    runtime: python
+    repo: https://github.com/rlacotte/woofwoof
+    region: frankfurt
+    plan: free
+    rootDir: backend
+    buildCommand: |
+      pip install -r requirements.txt &&
+      cd ../frontend && npm install && npm run build
+    startCommand: gunicorn app.main:app -w 2 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.6
+      - key: NODE_VERSION
+        value: 20.11.0

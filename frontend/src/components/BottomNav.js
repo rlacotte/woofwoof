@@ -1,23 +1,22 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { useTranslation } from '../i18n/LanguageContext';
+
+const HIDDEN_PATHS = ['/chat/', '/dog/', '/predictor', '/map'];
+const SUB_APP_PREFIXES = ['/health', '/walk', '/food', '/sitter', '/social', '/shop', '/train', '/adopt', '/travel', '/insure', '/petid', '/breed'];
 
 export default function BottomNav() {
   const location = useLocation();
-  const { t } = useTranslation();
+
+  if (HIDDEN_PATHS.some(p => location.pathname.startsWith(p))) return null;
+  if (SUB_APP_PREFIXES.some(p => location.pathname.startsWith(p))) return null;
 
   const tabs = [
-    { path: '/', icon: '🔥', labelKey: 'nav.discover' },
-    { path: '/search', icon: '🔍', labelKey: 'nav.search' },
-    { path: '/matches', icon: '💬', labelKey: 'nav.matches' },
-    { path: '/plans', icon: '⭐', labelKey: 'nav.plans' },
-    { path: '/profile', icon: '👤', labelKey: 'nav.profile' },
+    { path: '/', icon: '🔥', label: 'Match' },
+    { path: '/search', icon: '🔍', label: 'Chercher' },
+    { path: '/hub', icon: '🐾', label: 'Apps' },
+    { path: '/matches', icon: '💬', label: 'Messages' },
+    { path: '/profile', icon: '👤', label: 'Profil' },
   ];
-
-  if (location.pathname.startsWith('/chat/')) return null;
-  if (location.pathname.startsWith('/dog/')) return null;
-  if (location.pathname === '/predictor') return null;
-  if (location.pathname === '/map') return null;
 
   return (
     <nav className="bottom-nav">
@@ -29,7 +28,7 @@ export default function BottomNav() {
           end={tab.path === '/'}
         >
           <span className="nav-item-icon">{tab.icon}</span>
-          <span className="nav-item-label">{t(tab.labelKey)}</span>
+          <span className="nav-item-label">{tab.label}</span>
         </NavLink>
       ))}
     </nav>

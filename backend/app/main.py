@@ -4,11 +4,29 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
 
-from .database import engine, Base
+from .database import engine, Base, SessionLocal
 from .routers import profiles, matching, messaging, plans
+from . import models
 
 # Create tables
 Base.metadata.create_all(bind=engine)
+
+# Auto-seed if database is empty (first deploy)
+def _auto_seed():
+    db = SessionLocal()
+    try:
+        if db.query(models.User).count() == 0:
+            import subprocess, sys
+            seed_path = os.path.join(os.path.dirname(__file__), "..", "seed_data.py")
+            if os.path.exists(seed_path):
+                subprocess.run([sys.executable, seed_path], check=True)
+                print("[WoofWoof] Database seeded with demo data")
+    except Exception as e:
+        print(f"[WoofWoof] Auto-seed skipped: {e}")
+    finally:
+        db.close()
+
+_auto_seed()
 
 app = FastAPI(
     title="WoofWoof API",
@@ -34,13 +52,16 @@ app.include_router(matching.router)
 app.include_router(messaging.router)
 app.include_router(plans.router)
 
+# Use DATA_DIR for persistent storage (Render disk or local)
+DATA_DIR = os.getenv("DATA_DIR", os.path.join(os.path.dirname(__file__), ".."))
+
 # Serve uploaded photos
-uploads_path = os.path.join(os.path.dirname(__file__), "..", "uploads")
+uploads_path = os.path.join(DATA_DIR, "uploads")
 os.makedirs(uploads_path, exist_ok=True)
 app.mount("/uploads", StaticFiles(directory=uploads_path), name="uploads")
 
 # Serve generated puppy images
-generated_images_path = os.path.join(os.path.dirname(__file__), "..", "generated_images")
+generated_images_path = os.path.join(DATA_DIR, "generated_images")
 os.makedirs(generated_images_path, exist_ok=True)
 app.mount("/generated", StaticFiles(directory=generated_images_path), name="generated")
 
