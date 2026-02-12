@@ -6,6 +6,9 @@ import os
 
 from .database import engine, Base, SessionLocal
 from .routers import profiles, matching, messaging, plans
+from .routers import health as health_router, walk, food, sitter
+from .routers import social, shop, train, adopt
+from .routers import travel, insure, petid, breed
 from . import models
 
 # Create tables
@@ -43,14 +46,29 @@ app.add_middleware(
 )
 
 # API routes first
-@app.get("/api/health")
-def health():
-    return {"status": "ok", "app": "WoofWoof", "version": "1.0.0"}
+@app.get("/api/healthcheck")
+def healthcheck():
+    return {"status": "ok", "app": "WoofWoof Ecosystem", "version": "2.0.0", "apps": 12}
 
+# Core routers
 app.include_router(profiles.router)
 app.include_router(matching.router)
 app.include_router(messaging.router)
 app.include_router(plans.router)
+
+# Ecosystem routers
+app.include_router(health_router.router)
+app.include_router(walk.router)
+app.include_router(food.router)
+app.include_router(sitter.router)
+app.include_router(social.router)
+app.include_router(shop.router)
+app.include_router(train.router)
+app.include_router(adopt.router)
+app.include_router(travel.router)
+app.include_router(insure.router)
+app.include_router(petid.router)
+app.include_router(breed.router)
 
 # Use DATA_DIR for persistent storage (Render disk or local)
 DATA_DIR = os.getenv("DATA_DIR", os.path.join(os.path.dirname(__file__), ".."))
@@ -73,10 +91,22 @@ if os.path.exists(frontend_path):
     if os.path.exists(static_path):
         app.mount("/static", StaticFiles(directory=static_path), name="static")
 
-    # SPA fallback: serve index.html for all non-API routes
-    @app.get("/{full_path:path}")
-    async def serve_spa(full_path: str):
-        file_path = os.path.join(frontend_path, full_path)
+    # SPA fallback: serve index.html for all non-API routes via 404 handler
+    from starlette.exceptions import HTTPException as StarletteHTTPException
+    from fastapi import Request
+    from fastapi.responses import JSONResponse
+
+    @app.exception_handler(404)
+    async def custom_404_handler(request: Request, exc: StarletteHTTPException):
+        # Don't intercept API routes (return standard JSON 404)
+        if request.url.path.startswith("/api"):
+            return JSONResponse({"detail": "Not found"}, status_code=404)
+        
+        # Try to serve safe static file if it exists
+        path = request.url.path.lstrip("/")
+        file_path = os.path.join(frontend_path, path)
         if os.path.isfile(file_path):
             return FileResponse(file_path)
+            
+        # Fallback to SPA index.html
         return FileResponse(os.path.join(frontend_path, "index.html"))
