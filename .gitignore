@@ -1,0 +1,40 @@
+# Dependencies
+frontend/node_modules/
+frontend/package-lock.json
+
+# Build
+frontend/build/
+
+# Python
+backend/__pycache__/
+backend/app/__pycache__/
+backend/app/routers/__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+backend/venv/
+backend/.venv/
+
+# Database
+backend/*.db
+
+# Environment
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+nohup.out
+
+# Temp
+frontend/generate-icons.js
+/tmp/
