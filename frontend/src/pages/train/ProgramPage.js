@@ -245,16 +245,22 @@ export default function ProgramPage() {
   };
 
   const handleStart = async () => {
-    if (!selectedDogId) return;
+    if (!selectedDogId) {
+      console.error('No dog selected');
+      return;
+    }
     try {
       setActionLoading(true);
+      console.log('Starting program:', { program_id: parseInt(programId), dog_id: parseInt(selectedDogId) });
       await api.request('/training/start', {
         method: 'POST',
-        body: { program_id: programId, dog_id: selectedDogId },
+        body: JSON.stringify({ program_id: parseInt(programId), dog_id: parseInt(selectedDogId) }),
       });
       await loadUserProgress(selectedDogId);
     } catch (err) {
       console.error('Failed to start program:', err);
+      const errorMsg = err?.detail || err?.message || JSON.stringify(err) || 'Impossible de démarrer le programme';
+      alert(`Erreur: ${errorMsg}`);
     } finally {
       setActionLoading(false);
     }

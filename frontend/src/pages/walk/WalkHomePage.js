@@ -17,7 +17,7 @@ export default function WalkHomePage() {
       if (data.length > 0) {
         setActiveDogId(data[0].id);
       }
-    }).catch(() => {});
+    }).catch(() => { });
   }, []);
 
   useEffect(() => {
@@ -118,7 +118,12 @@ export default function WalkHomePage() {
             ) : (
               <div className="walk-list">
                 {recentWalks.map((walk, idx) => (
-                  <div key={walk.id || idx} className="walk-card">
+                  <div
+                    key={walk.id || idx}
+                    className="walk-card"
+                    onClick={() => navigate(`/walk/history/${walk.id}`)}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <div className="walk-card-left">
                       <span className="walk-card-date">
                         {new Date(walk.date || walk.created_at).toLocaleDateString('fr-FR')}
@@ -134,6 +139,7 @@ export default function WalkHomePage() {
                       <span className="walk-card-duration">
                         {formatDuration(walk.duration_minutes)}
                       </span>
+                      <span style={{ marginLeft: '10px' }}>🗺️</span>
                     </div>
                   </div>
                 ))}

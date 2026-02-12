@@ -62,6 +62,28 @@ def update_location(
     return {"status": "ok"}
 
 
+@router.put("/me/hub-order")
+def update_hub_order(
+    hub_order: schemas.HubOrderUpdate,
+    current_user: models.User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    import json
+    current_user.hub_order = json.dumps(hub_order.hub_ids)
+    db.commit()
+    return {"status": "ok", "hub_order": hub_order.hub_ids}
+
+
+@router.get("/me/hub-order")
+def get_hub_order(
+    current_user: models.User = Depends(get_current_user),
+):
+    import json
+    if current_user.hub_order:
+        return {"hub_order": json.loads(current_user.hub_order)}
+    return {"hub_order": None}
+
+
 # ---- Dogs ----
 @router.post("/dogs", response_model=schemas.DogOut)
 def create_dog(

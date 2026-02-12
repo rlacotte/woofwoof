@@ -8,7 +8,7 @@ from .database import engine, Base, SessionLocal
 from .routers import profiles, matching, messaging, plans
 from .routers import health as health_router, walk, food, sitter
 from .routers import social, shop, train, adopt
-from .routers import travel, insure, petid, breed
+from .routers import travel, insure, petid, breed, alert
 from . import models
 
 # Create tables
@@ -69,6 +69,7 @@ app.include_router(travel.router)
 app.include_router(insure.router)
 app.include_router(petid.router)
 app.include_router(breed.router)
+app.include_router(alert.router)
 
 # Use DATA_DIR for persistent storage (Render disk or local)
 DATA_DIR = os.getenv("DATA_DIR", os.path.join(os.path.dirname(__file__), ".."))

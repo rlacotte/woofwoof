@@ -142,9 +142,29 @@ export default function SitterProfilePage() {
             {(sitter.name || '?').charAt(0).toUpperCase()}
           </div>
         )}
-        <h2 className="sitter-profile-name">{sitter.name}</h2>
+        <div className="sitter-profile-name-row">
+          <h2 className="sitter-profile-name">{sitter.name}</h2>
+          {sitter.verified && (
+            <span className="sitter-profile-verified-badge" title="Profil vérifié">
+              ✓ Vérifié
+            </span>
+          )}
+        </div>
+        {sitter.rating >= 4.8 && sitter.total_reviews >= 10 && (
+          <div className="sitter-profile-top-badge">⭐ Top Pet-Sitter</div>
+        )}
         {sitter.rating !== undefined && sitter.rating !== null && (
-          renderStars(sitter.rating)
+          <div className="sitter-profile-rating-row">
+            {renderStars(sitter.rating)}
+            {sitter.total_reviews > 0 && (
+              <span className="sitter-profile-review-count">
+                {sitter.total_reviews} avis
+              </span>
+            )}
+          </div>
+        )}
+        {sitter.user_city && (
+          <div className="sitter-profile-location">📍 {sitter.user_city}</div>
         )}
       </div>
 

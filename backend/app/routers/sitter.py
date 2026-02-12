@@ -193,6 +193,19 @@ def get_sitter_profile(
 
 # ---- Sitter Profile Management ----
 
+@router.get("/sitters/profile/me")
+def get_my_sitter_profile(
+    current_user: models.User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    profile = db.query(models.SitterProfile).filter(
+        models.SitterProfile.user_id == current_user.id
+    ).first()
+    if not profile:
+        raise HTTPException(status_code=404, detail="Profil de pet-sitter non trouvé")
+    return _row_to_dict(profile)
+
+
 @router.post("/sitters/profile")
 def create_sitter_profile(
     data: SitterProfileCreate,

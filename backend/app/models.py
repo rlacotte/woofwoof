@@ -44,6 +44,9 @@ class User(Base):
     longitude = Column(Float, nullable=True)
     city = Column(String, nullable=True)
 
+    # Hub order customization: JSON array of hub IDs
+    hub_order = Column(Text, nullable=True)  # e.g., '["health","walk","food",...]'
+
     dogs = relationship("Dog", back_populates="owner", cascade="all, delete-orphan")
 
 
@@ -773,3 +776,23 @@ class PedigreeEntry(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     dog = relationship("Dog")
+
+
+# ============================================================
+# WoofAlert - Securite & Dangers
+# ============================================================
+
+class DangerZone(Base):
+    __tablename__ = "danger_zones"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    latitude = Column(Float, nullable=False)
+    longitude = Column(Float, nullable=False)
+    alert_type = Column(String, nullable=False)  # ticks, plants, other
+    description = Column(Text, nullable=True)
+    photo_url = Column(String, nullable=True)
+    city = Column(String, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User")

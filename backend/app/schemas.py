@@ -33,6 +33,7 @@ class UserOut(BaseModel):
     latitude: Optional[float]
     longitude: Optional[float]
     city: Optional[str]
+    hub_order: Optional[str]
     created_at: datetime
 
     class Config:
@@ -262,6 +263,11 @@ class LocationUpdate(BaseModel):
     latitude: float
     longitude: float
     city: Optional[str] = None
+
+
+# --- Hub Order ---
+class HubOrderUpdate(BaseModel):
+    hub_ids: List[str]
 
 
 # --- Puppy Predictor ---

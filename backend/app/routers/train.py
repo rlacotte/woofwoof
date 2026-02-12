@@ -164,14 +164,23 @@ def get_progress(
             .filter(models.TrainingStep.program_id == prog.program_id)
             .count()
         )
+        # Determine status
+        if prog.completed:
+            status = "completed"
+        else:
+            status = "in_progress"
+
         results.append({
             "id": prog.id,
             "program_id": prog.program_id,
+            "program_name": program.title if program else None,
             "program_title": program.title if program else None,
+            "difficulty": program.difficulty if program else None,
             "program_difficulty": program.difficulty if program else None,
             "current_step": prog.current_step,
             "total_steps": total_steps,
             "completed": prog.completed,
+            "status": status,
             "started_at": prog.started_at.isoformat() if prog.started_at else None,
             "completed_at": prog.completed_at.isoformat() if prog.completed_at else None,
         })
@@ -221,6 +230,53 @@ def advance_step(
             "completed": False,
             "message": f"Etape {progress.current_step}/{total_steps}",
         }
+
+
+@router.get("/train/my-progress")
+def get_my_progress(
+    current_user: models.User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Get all training progress for the current user across all dogs"""
+    progress_list = (
+        db.query(models.UserTrainingProgress)
+        .filter(models.UserTrainingProgress.user_id == current_user.id)
+        .order_by(models.UserTrainingProgress.started_at.desc())
+        .all()
+    )
+    results = []
+    for prog in progress_list:
+        program = db.query(models.TrainingProgram).filter(
+            models.TrainingProgram.id == prog.program_id
+        ).first()
+        dog = db.query(models.Dog).filter(
+            models.Dog.id == prog.dog_id
+        ).first()
+        total_steps = (
+            db.query(models.TrainingStep)
+            .filter(models.TrainingStep.program_id == prog.program_id)
+            .count()
+        )
+        # Determine status
+        if prog.completed:
+            status = "completed"
+        else:
+            status = "in_progress"
+
+        results.append({
+            "id": prog.id,
+            "program_id": prog.program_id,
+            "program_name": program.title if program else None,
+            "difficulty": program.difficulty if program else None,
+            "dog_name": dog.name if dog else None,
+            "current_step": prog.current_step,
+            "total_steps": total_steps,
+            "completed": prog.completed,
+            "status": status,
+            "started_at": prog.started_at.isoformat() if prog.started_at else None,
+            "completed_at": prog.completed_at.isoformat() if prog.completed_at else None,
+        })
+    return results
 
 
 @router.delete("/training/progress/{progress_id}")

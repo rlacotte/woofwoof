@@ -62,8 +62,8 @@ function PhotoUploader({ index, currentUrl, onUploaded }) {
   );
 }
 
-function AddDogModal({ onClose, onAdd }) {
-  const [form, setForm] = useState({
+function DogFormModal({ onClose, onSave, initialData = null }) {
+  const [form, setForm] = useState(initialData || {
     name: '', breed: '', age_years: 1, age_months: 0,
     weight_kg: '', sex: 'male', bio: '', temperament: '',
     intention: 'balade', photo_url_1: '', photo_url_2: '', photo_url_3: '',
@@ -102,10 +102,18 @@ function AddDogModal({ onClose, onAdd }) {
         good_with_cats: form.good_with_cats === '' ? null : form.good_with_cats,
         good_with_dogs: form.good_with_dogs === '' ? null : form.good_with_dogs,
       };
+
+      // Clean up empty strings to null
       Object.keys(data).forEach(k => { if (data[k] === '') data[k] = null; });
-      await api.createDog(data);
+
+      if (initialData && initialData.id) {
+        await api.updateDog(initialData.id, data);
+      } else {
+        await api.createDog(data);
+      }
+
       const dogs = await api.getMyDogs();
-      onAdd(dogs);
+      onSave(dogs);
       onClose();
     } catch (err) {
       setError(err.message);
@@ -130,11 +138,13 @@ function AddDogModal({ onClose, onAdd }) {
     );
   }
 
+  const isEditing = !!initialData;
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-handle" />
-        <h2>Ajouter un chien</h2>
+        <h2>{isEditing ? `Modifier ${form.name}` : 'Ajouter un chien'}</h2>
 
         {error && <div className="auth-error">{error}</div>}
 
@@ -181,13 +191,13 @@ function AddDogModal({ onClose, onAdd }) {
             </div>
             <div className="form-group">
               <label>Date de naissance</label>
-              <input type="date" value={form.date_of_birth} onChange={(e) => update('date_of_birth', e.target.value)} />
+              <input type="date" value={form.date_of_birth || ''} onChange={(e) => update('date_of_birth', e.target.value)} />
             </div>
           </Section>
 
           <Section title="Photos" icon="📸" defaultOpen={true}>
             <div className="photo-upload-grid">
-              {[1,2,3,4,5,6].map(i => (
+              {[1, 2, 3, 4, 5, 6].map(i => (
                 <PhotoUploader
                   key={i}
                   index={i}
@@ -201,16 +211,16 @@ function AddDogModal({ onClose, onAdd }) {
           <Section title="Physique" icon="💪">
             <div className="form-group">
               <label>Couleur de robe</label>
-              <input value={form.coat_color} onChange={(e) => update('coat_color', e.target.value)} placeholder="Noir et feu" />
+              <input value={form.coat_color || ''} onChange={(e) => update('coat_color', e.target.value)} placeholder="Noir et feu" />
             </div>
             <div className="form-row-2">
               <div className="form-group">
                 <label>Couleur des yeux</label>
-                <input value={form.eye_color} onChange={(e) => update('eye_color', e.target.value)} placeholder="Marron" />
+                <input value={form.eye_color || ''} onChange={(e) => update('eye_color', e.target.value)} placeholder="Marron" />
               </div>
               <div className="form-group">
                 <label>Taille au garrot (cm)</label>
-                <input type="number" step="0.1" value={form.height_cm} onChange={(e) => update('height_cm', e.target.value)} />
+                <input type="number" step="0.1" value={form.height_cm || ''} onChange={(e) => update('height_cm', e.target.value)} />
               </div>
             </div>
           </Section>
@@ -225,47 +235,47 @@ function AddDogModal({ onClose, onAdd }) {
             <div className="form-row-2">
               <div className="form-group">
                 <label>N° LOF</label>
-                <input value={form.lof_number} onChange={(e) => update('lof_number', e.target.value)} placeholder="LOF 2 BGA 12345/2022" />
+                <input value={form.lof_number || ''} onChange={(e) => update('lof_number', e.target.value)} placeholder="LOF 2 BGA 12345/2022" />
               </div>
               <div className="form-group">
                 <label>N° Puce</label>
-                <input value={form.microchip_number} onChange={(e) => update('microchip_number', e.target.value)} placeholder="250269802123456" />
+                <input value={form.microchip_number || ''} onChange={(e) => update('microchip_number', e.target.value)} placeholder="250269802123456" />
               </div>
             </div>
             <div className="form-group">
               <label>Élevage d'origine</label>
-              <input value={form.kennel_name} onChange={(e) => update('kennel_name', e.target.value)} placeholder="Du Domaine des Braves" />
+              <input value={form.kennel_name || ''} onChange={(e) => update('kennel_name', e.target.value)} placeholder="Du Domaine des Braves" />
             </div>
             <div className="form-row-2">
               <div className="form-group">
                 <label>Nom du père</label>
-                <input value={form.sire_name} onChange={(e) => update('sire_name', e.target.value)} />
+                <input value={form.sire_name || ''} onChange={(e) => update('sire_name', e.target.value)} />
               </div>
               <div className="form-group">
                 <label>Race du père</label>
-                <input value={form.sire_breed} onChange={(e) => update('sire_breed', e.target.value)} />
+                <input value={form.sire_breed || ''} onChange={(e) => update('sire_breed', e.target.value)} />
               </div>
             </div>
             <div className="form-row-2">
               <div className="form-group">
                 <label>Nom de la mère</label>
-                <input value={form.dam_name} onChange={(e) => update('dam_name', e.target.value)} />
+                <input value={form.dam_name || ''} onChange={(e) => update('dam_name', e.target.value)} />
               </div>
               <div className="form-group">
                 <label>Race de la mère</label>
-                <input value={form.dam_breed} onChange={(e) => update('dam_breed', e.target.value)} />
+                <input value={form.dam_breed || ''} onChange={(e) => update('dam_breed', e.target.value)} />
               </div>
             </div>
             <div className="form-group">
               <label>URL du pedigree</label>
-              <input value={form.pedigree_url} onChange={(e) => update('pedigree_url', e.target.value)} placeholder="https://..." />
+              <input value={form.pedigree_url || ''} onChange={(e) => update('pedigree_url', e.target.value)} placeholder="https://..." />
             </div>
           </Section>
 
           <Section title="Santé" icon="🏥">
             <div className="form-group">
               <label>Statut vaccinal</label>
-              <select value={form.vaccination_status} onChange={(e) => update('vaccination_status', e.target.value)}>
+              <select value={form.vaccination_status || ''} onChange={(e) => update('vaccination_status', e.target.value)}>
                 <option value="">Non renseigné</option>
                 <option value="a_jour">À jour</option>
                 <option value="partiel">Partiel</option>
@@ -274,11 +284,11 @@ function AddDogModal({ onClose, onAdd }) {
             </div>
             <div className="form-group">
               <label>Tests de santé</label>
-              <textarea rows="2" value={form.health_tests} onChange={(e) => update('health_tests', e.target.value)} placeholder='Ex: dysplasie hanches A, ADN DM clear...' />
+              <textarea rows="2" value={form.health_tests || ''} onChange={(e) => update('health_tests', e.target.value)} placeholder='Ex: dysplasie hanches A, ADN DM clear...' />
             </div>
             <div className="form-group">
               <label>Allergies</label>
-              <input value={form.allergies} onChange={(e) => update('allergies', e.target.value)} placeholder="Poulet, gluten..." />
+              <input value={form.allergies || ''} onChange={(e) => update('allergies', e.target.value)} placeholder="Poulet, gluten..." />
             </div>
             <div className="form-group">
               <label className="checkbox-label">
@@ -291,12 +301,12 @@ function AddDogModal({ onClose, onAdd }) {
           <Section title="Comportement" icon="💡">
             <div className="form-group">
               <label>Caractère (séparé par virgules)</label>
-              <input value={form.temperament} onChange={(e) => update('temperament', e.target.value)} placeholder="joueur, affectueux, calme" />
+              <input value={form.temperament || ''} onChange={(e) => update('temperament', e.target.value)} placeholder="joueur, affectueux, calme" />
             </div>
             <div className="form-row-2">
               <div className="form-group">
                 <label>Niveau d'activité</label>
-                <select value={form.activity_level} onChange={(e) => update('activity_level', e.target.value)}>
+                <select value={form.activity_level || ''} onChange={(e) => update('activity_level', e.target.value)}>
                   <option value="">Non renseigné</option>
                   <option value="low">Calme</option>
                   <option value="moderate">Modéré</option>
@@ -306,7 +316,7 @@ function AddDogModal({ onClose, onAdd }) {
               </div>
               <div className="form-group">
                 <label>Régime alimentaire</label>
-                <select value={form.diet} onChange={(e) => update('diet', e.target.value)}>
+                <select value={form.diet || ''} onChange={(e) => update('diet', e.target.value)}>
                   <option value="">Non renseigné</option>
                   <option value="croquettes">Croquettes</option>
                   <option value="patee">Pâtée</option>
@@ -320,19 +330,19 @@ function AddDogModal({ onClose, onAdd }) {
             <BoolSelect label="S'entend avec les chiens" field="good_with_dogs" />
             <div className="form-group">
               <label>Bio</label>
-              <textarea rows="3" value={form.bio} onChange={(e) => update('bio', e.target.value)} placeholder="Décrivez votre chien..." />
+              <textarea rows="3" value={form.bio || ''} onChange={(e) => update('bio', e.target.value)} placeholder="Décrivez votre chien..." />
             </div>
           </Section>
 
           <Section title="Palmarès" icon="🏅">
             <div className="form-group">
               <label>Titres et récompenses</label>
-              <textarea rows="2" value={form.titles} onChange={(e) => update('titles', e.target.value)} placeholder="Champion de France, SchH1..." />
+              <textarea rows="2" value={form.titles || ''} onChange={(e) => update('titles', e.target.value)} placeholder="Champion de France, SchH1..." />
             </div>
           </Section>
 
           <button type="submit" className="btn btn-primary mt-16" disabled={loading}>
-            {loading ? '...' : 'Ajouter'}
+            {loading ? '...' : (isEditing ? 'Enregistrer' : 'Ajouter')}
           </button>
           <button type="button" className="btn btn-outline mt-8" onClick={onClose}>
             Annuler
@@ -345,6 +355,7 @@ function AddDogModal({ onClose, onAdd }) {
 
 export default function ProfilePage({ user, dogs, activeDog, setActiveDog, onDogsUpdate, onLogout }) {
   const [showAddDog, setShowAddDog] = useState(false);
+  const [editingDog, setEditingDog] = useState(null);
   const [geoLoading, setGeoLoading] = useState(false);
   const [verifyLoading, setVerifyLoading] = useState('');
   const navigate = useNavigate();
@@ -483,6 +494,13 @@ export default function ProfilePage({ user, dogs, activeDog, setActiveDog, onDog
               >
                 👁️ {t('profile.viewProfile')}
               </button>
+              <button
+                className="btn-sm btn-edit"
+                style={{ marginLeft: 5 }}
+                onClick={() => setEditingDog(dog)}
+              >
+                ✏️ Modifier
+              </button>
               {!dog.health_verified && (
                 <button
                   className="btn-sm btn-verify"
@@ -516,10 +534,14 @@ export default function ProfilePage({ user, dogs, activeDog, setActiveDog, onDog
         </button>
       </div>
 
-      {showAddDog && (
-        <AddDogModal
-          onClose={() => setShowAddDog(false)}
-          onAdd={onDogsUpdate}
+      {(showAddDog || editingDog) && (
+        <DogFormModal
+          onClose={() => {
+            setShowAddDog(false);
+            setEditingDog(null);
+          }}
+          onSave={onDogsUpdate}
+          initialData={editingDog}
         />
       )}
     </div>

@@ -24,6 +24,7 @@ import AppointmentsPage from './pages/health/AppointmentsPage';
 // WoofWalk
 import WalkHomePage from './pages/walk/WalkHomePage';
 import WalkTrackPage from './pages/walk/WalkTrackPage';
+import WalkDetailPage from './pages/walk/WalkDetailPage';
 import WalkSpotsPage from './pages/walk/WalkSpotsPage';
 
 // WoofFood
@@ -35,6 +36,8 @@ import FoodScanPage from './pages/food/FoodScanPage';
 import SitterHomePage from './pages/sitter/SitterHomePage';
 import SitterProfilePage from './pages/sitter/SitterProfilePage';
 import BookingPage from './pages/sitter/BookingPage';
+import BecomeSitterPage from './pages/sitter/BecomeSitterPage';
+import SitterMapPage from './pages/sitter/SitterMapPage';
 
 // WoofSocial
 import SocialFeedPage from './pages/social/SocialFeedPage';
@@ -50,11 +53,14 @@ import CartPage from './pages/shop/CartPage';
 import TrainHomePage from './pages/train/TrainHomePage';
 import ProgramPage from './pages/train/ProgramPage';
 import ProgressPage from './pages/train/ProgressPage';
+import MyAchievementsPage from './pages/train/MyAchievementsPage';
+import TrainerTipsPage from './pages/train/TrainerTipsPage';
 
 // WoofAdopt
 import AdoptHomePage from './pages/adopt/AdoptHomePage';
 import ListingPage from './pages/adopt/ListingPage';
 import SheltersPage from './pages/adopt/SheltersPage';
+import MyRequestsPage from './pages/adopt/MyRequestsPage';
 
 // WoofTravel
 import TravelHomePage from './pages/travel/TravelHomePage';
@@ -75,6 +81,10 @@ import ScanTagPage from './pages/petid/ScanTagPage';
 import BreedHomePage from './pages/breed/BreedHomePage';
 import BreederPage from './pages/breed/BreederPage';
 import PedigreePage from './pages/breed/PedigreePage';
+
+// WoofAlert
+import AlertHomePage from './pages/alert/AlertHomePage';
+import AlertReportPage from './pages/alert/AlertReportPage';
 
 import BottomNav from './components/BottomNav';
 import InstallPrompt from './components/InstallPrompt';
@@ -145,108 +155,119 @@ function App() {
 
   return (
     <LanguageProvider>
-    <BrowserRouter>
-      <div className="app">
-        <Routes>
-          {/* ===== Core Routes ===== */}
-          <Route
-            path="/"
-            element={
-              activeDog ? (
-                <SwipePage user={user} activeDog={activeDog} />
-              ) : (
-                <Navigate to="/profile" />
-              )
-            }
-          />
-          <Route path="/hub" element={<HubPage />} />
-          <Route path="/search" element={<SearchPage user={user} />} />
-          <Route path="/matches" element={<MatchesPage user={user} dogs={dogs} />} />
-          <Route path="/chat/:matchId" element={<ChatPage user={user} />} />
-          <Route path="/plans" element={<PlansPage user={user} onUserUpdate={setUser} />} />
-          <Route
-            path="/profile"
-            element={
-              <ProfilePage
-                user={user}
-                dogs={dogs}
-                activeDog={activeDog}
-                setActiveDog={setActiveDog}
-                onDogsUpdate={(d) => { setDogs(d); if (d.length > 0 && !activeDog) setActiveDog(d[0]); }}
-                onLogout={handleLogout}
-              />
-            }
-          />
-          <Route path="/predictor" element={<PuppyPredictorPage user={user} dogs={dogs} />} />
-          <Route path="/dog/:dogId" element={<DogDetailPage />} />
-          <Route path="/map" element={<MapPage user={user} activeDog={activeDog} />} />
+      <BrowserRouter>
+        <div className="app">
+          <Routes>
+            {/* ===== Core Routes ===== */}
+            <Route path="/" element={<HubPage user={user} />} />
+            <Route path="/hub" element={<HubPage user={user} />} />
+            <Route
+              path="/match"
+              element={
+                activeDog ? (
+                  <SwipePage user={user} activeDog={activeDog} />
+                ) : (
+                  <Navigate to="/profile" />
+                )
+              }
+            />
+            <Route path="/search" element={<SearchPage user={user} />} />
+            <Route path="/matches" element={<MatchesPage user={user} dogs={dogs} />} />
+            <Route path="/chat/:matchId" element={<ChatPage user={user} />} />
+            <Route path="/plans" element={<PlansPage user={user} onUserUpdate={setUser} />} />
+            <Route
+              path="/profile"
+              element={
+                <ProfilePage
+                  user={user}
+                  dogs={dogs}
+                  activeDog={activeDog}
+                  setActiveDog={setActiveDog}
+                  onDogsUpdate={(d) => { setDogs(d); if (d.length > 0 && !activeDog) setActiveDog(d[0]); }}
+                  onLogout={handleLogout}
+                />
+              }
+            />
+            <Route path="/predictor" element={<PuppyPredictorPage user={user} dogs={dogs} />} />
+            <Route path="/dog/:dogId" element={<DogDetailPage />} />
+            <Route path="/map" element={<MapPage user={user} activeDog={activeDog} />} />
 
-          {/* ===== WoofHealth ===== */}
-          <Route path="/health" element={<HealthHomePage />} />
-          <Route path="/health/vaccinations" element={<VaccinationsPage />} />
-          <Route path="/health/appointments" element={<AppointmentsPage />} />
+            {/* ===== WoofHealth ===== */}
+            <Route path="/health" element={<HealthHomePage />} />
+            <Route path="/health/vaccinations" element={<VaccinationsPage />} />
+            <Route path="/health/appointments" element={<AppointmentsPage />} />
 
-          {/* ===== WoofWalk ===== */}
-          <Route path="/walk" element={<WalkHomePage />} />
-          <Route path="/walk/track" element={<WalkTrackPage />} />
-          <Route path="/walk/spots" element={<WalkSpotsPage />} />
+            {/* ===== WoofWalk ===== */}
+            <Route path="/walk" element={<WalkHomePage />} />
+            <Route path="/walk/track" element={<WalkTrackPage />} />
+            <Route path="/walk/history/:id" element={<WalkDetailPage />} />
+            <Route path="/walk/spots" element={<WalkSpotsPage />} />
 
-          {/* ===== WoofFood ===== */}
-          <Route path="/food" element={<FoodHomePage />} />
-          <Route path="/food/meals" element={<MealPlanPage />} />
-          <Route path="/food/products" element={<FoodScanPage />} />
+            {/* ===== WoofFood ===== */}
+            <Route path="/food" element={<FoodHomePage />} />
+            <Route path="/food/meals" element={<MealPlanPage />} />
+            <Route path="/food/products" element={<FoodScanPage />} />
 
-          {/* ===== WoofSitter ===== */}
-          <Route path="/sitter" element={<SitterHomePage />} />
-          <Route path="/sitter/:sitterId" element={<SitterProfilePage />} />
-          <Route path="/sitter/bookings" element={<BookingPage />} />
+            {/* ===== WoofSitter ===== */}
+            <Route path="/sitter" element={<SitterHomePage />} />
+            <Route path="/sitter/become" element={<BecomeSitterPage />} />
+            <Route path="/sitter/map" element={<SitterMapPage />} />
+            <Route path="/sitter/bookings" element={<BookingPage />} />
+            <Route path="/sitter/:sitterId" element={<SitterProfilePage />} />
 
-          {/* ===== WoofSocial ===== */}
-          <Route path="/social" element={<SocialFeedPage />} />
-          <Route path="/social/profile/:userId" element={<SocialProfilePage />} />
-          <Route path="/social/create" element={<CreatePostPage />} />
+            {/* ===== WoofSocial ===== */}
+            <Route path="/social" element={<SocialFeedPage />} />
+            <Route path="/social/profile/:userId" element={<SocialProfilePage />} />
+            <Route path="/social/create" element={<CreatePostPage />} />
 
-          {/* ===== WoofShop ===== */}
-          <Route path="/shop" element={<ShopHomePage />} />
-          <Route path="/shop/product/:productId" element={<ProductPage />} />
-          <Route path="/shop/cart" element={<CartPage />} />
+            {/* ===== WoofShop ===== */}
+            <Route path="/shop" element={<ShopHomePage />} />
+            <Route path="/shop/product/:productId" element={<ProductPage />} />
+            <Route path="/shop/cart" element={<CartPage />} />
 
-          {/* ===== WoofTrain ===== */}
-          <Route path="/train" element={<TrainHomePage />} />
-          <Route path="/train/program/:programId" element={<ProgramPage />} />
-          <Route path="/train/progress" element={<ProgressPage />} />
+            {/* ===== WoofTrain ===== */}
+            <Route path="/train" element={<TrainHomePage />} />
+            <Route path="/train/program/:programId" element={<ProgramPage />} />
+            <Route path="/train/progress" element={<ProgressPage />} />
+            <Route path="/train/achievements" element={<MyAchievementsPage />} />
+            <Route path="/train/tips" element={<TrainerTipsPage />} />
 
-          {/* ===== WoofAdopt ===== */}
-          <Route path="/adopt" element={<AdoptHomePage />} />
-          <Route path="/adopt/listing/:listingId" element={<ListingPage />} />
-          <Route path="/adopt/shelters" element={<SheltersPage />} />
+            {/* ===== WoofAdopt ===== */}
+            <Route path="/adopt" element={<AdoptHomePage />} />
+            <Route path="/adopt/my-requests" element={<MyRequestsPage />} />
+            <Route path="/adopt/listing/:listingId" element={<ListingPage />} />
+            <Route path="/adopt/shelters" element={<SheltersPage />} />
 
-          {/* ===== WoofTravel ===== */}
-          <Route path="/travel" element={<TravelHomePage />} />
-          <Route path="/travel/places" element={<PlacesMapPage />} />
-          <Route path="/travel/checklists" element={<ChecklistPage />} />
+            {/* ===== WoofTravel ===== */}
+            <Route path="/travel" element={<TravelHomePage />} />
+            <Route path="/travel/places" element={<PlacesMapPage />} />
+            <Route path="/travel/checklists" element={<ChecklistPage />} />
 
-          {/* ===== WoofInsure ===== */}
-          <Route path="/insure" element={<InsureHomePage />} />
-          <Route path="/insure/compare" element={<ComparePage />} />
-          <Route path="/insure/claims" element={<ClaimsPage />} />
+            {/* ===== WoofInsure ===== */}
+            <Route path="/insure" element={<InsureHomePage />} />
+            <Route path="/insure/compare" element={<ComparePage />} />
+            <Route path="/insure/claims" element={<ClaimsPage />} />
 
-          {/* ===== WoofID ===== */}
-          <Route path="/petid" element={<PetIdHomePage />} />
-          <Route path="/petid/lost" element={<LostPetsPage />} />
-          <Route path="/petid/scan" element={<ScanTagPage />} />
+            {/* ===== WoofID ===== */}
+            <Route path="/petid" element={<PetIdHomePage />} />
+            <Route path="/petid/lost" element={<LostPetsPage />} />
+            <Route path="/petid/scan" element={<ScanTagPage />} />
 
-          {/* ===== WoofBreed ===== */}
-          <Route path="/breed" element={<BreedHomePage />} />
-          <Route path="/breed/breeders" element={<BreederPage />} />
-          <Route path="/breed/pedigree" element={<PedigreePage />} />
+            {/* ===== WoofBreed ===== */}
+            <Route path="/breed" element={<BreedHomePage />} />
+            <Route path="/breed/breeders" element={<BreederPage />} />
+            <Route path="/breed/pedigree" element={<PedigreePage />} />
 
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-        <BottomNav />
-        <InstallPrompt />
-      </div>
-    </BrowserRouter>
+            {/* ===== WoofAlert ===== */}
+            <Route path="/alert" element={<AlertHomePage />} />
+            <Route path="/alert/report" element={<AlertReportPage />} />
+
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+          <BottomNav />
+          <InstallPrompt />
+        </div>
+      </BrowserRouter>
     </LanguageProvider>
   );
 }

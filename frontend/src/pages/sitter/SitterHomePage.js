@@ -69,7 +69,13 @@ export default function SitterHomePage() {
           className="sitter-bookings-btn"
           onClick={() => navigate('/sitter/bookings')}
         >
-          📋 Mes reservations
+          📋 Mes réservations
+        </button>
+        <button
+          className="sitter-map-btn"
+          onClick={() => navigate('/sitter/map')}
+        >
+          🗺️ Carte
         </button>
         <button
           className="sitter-become-btn"
@@ -126,9 +132,22 @@ export default function SitterHomePage() {
                 )}
               </div>
               <div className="sitter-card-center">
-                <h4 className="sitter-card-name">{sitter.name}</h4>
+                <div className="sitter-card-name-row">
+                  <h4 className="sitter-card-name">{sitter.name}</h4>
+                  {sitter.verified && (
+                    <span className="sitter-verified-badge" title="Profil vérifié">✓</span>
+                  )}
+                  {sitter.rating >= 4.8 && sitter.total_reviews >= 10 && (
+                    <span className="sitter-top-badge" title="Top Pet-Sitter">⭐</span>
+                  )}
+                </div>
                 {sitter.rating !== undefined && sitter.rating !== null && (
-                  renderStars(sitter.rating)
+                  <div className="sitter-rating-row">
+                    {renderStars(sitter.rating)}
+                    {sitter.total_reviews > 0 && (
+                      <span className="sitter-review-count">({sitter.total_reviews} avis)</span>
+                    )}
+                  </div>
                 )}
                 <div className="sitter-card-services">
                   {sitter.services &&

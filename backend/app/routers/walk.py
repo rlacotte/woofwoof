@@ -97,7 +97,27 @@ def create_walk(
     db.add(walk)
     db.commit()
     db.refresh(walk)
+    db.refresh(walk)
     return _row_to_dict(walk)
+
+
+@router.get("/walks/{walk_id}/detail")
+def get_walk_detail(
+    walk_id: int,
+    current_user: models.User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    walk = db.query(models.Walk).filter(models.Walk.id == walk_id).first()
+    if not walk:
+        raise HTTPException(status_code=404, detail="Promenade non trouvée")
+    
+    # Check ownership
+    dog = db.query(models.Dog).get(walk.dog_id)
+    if not dog or dog.owner_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Accès non autorisé")
+
+    return _row_to_dict(walk)
+
 
 
 @router.get("/walks/{dog_id}/stats")

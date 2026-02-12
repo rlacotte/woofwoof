@@ -78,7 +78,7 @@ body {
 
 /* ===== Typography ===== */
 .heading-display {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Outfit', sans-serif;
   font-weight: 800;
 }
 
@@ -114,7 +114,7 @@ body {
 }
 
 .loading-screen h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 36px;
   font-weight: 900;
   background: var(--gradient-primary);
@@ -176,7 +176,7 @@ body {
 }
 
 .auth-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 48px;
   font-weight: 900;
   background: var(--gradient-primary);
@@ -393,7 +393,7 @@ body {
 }
 
 .page-header h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 24px;
   font-weight: 800;
   background: var(--gradient-primary);
@@ -740,7 +740,7 @@ body {
 }
 
 .match-popup h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 42px;
   font-weight: 900;
   background: var(--gradient-primary);
@@ -1300,7 +1300,7 @@ body {
 .plan-icon { font-size: 44px; margin-bottom: 10px; }
 
 .plan-name {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 24px;
   font-weight: 800;
   margin-bottom: 4px;
@@ -1352,7 +1352,7 @@ body {
 .predictor-page { padding: 16px; }
 
 .predictor-page h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 24px;
   text-align: center;
   margin-bottom: 8px;
@@ -2664,10 +2664,11 @@ body {
 .hub-header {
   text-align: center;
   padding: 24px 0 20px;
+  position: relative;
 }
 
 .hub-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 32px;
   font-weight: 900;
   background: var(--gradient-primary);
@@ -2680,6 +2681,25 @@ body {
   color: var(--text-secondary);
   font-size: 14px;
   margin-top: 4px;
+}
+
+.hub-edit-btn {
+  position: absolute;
+  top: 24px;
+  right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hub-edit-btn:hover {
+  background: var(--glass-hover);
 }
 
 .hub-grid {
@@ -2712,6 +2732,18 @@ body {
 
 .hub-app-card:active {
   transform: scale(0.96);
+}
+
+.hub-app-card-editing {
+  cursor: grab;
+  opacity: 0.9;
+}
+
+.hub-app-card-editing:active {
+  cursor: grabbing;
+  transform: scale(1.05);
+  box-shadow: var(--shadow-lg);
+  z-index: 10;
 }
 
 .hub-app-icon {
@@ -2821,7 +2853,7 @@ body {
 }
 
 .subapp-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 26px;
   font-weight: 800;
   color: white;
@@ -3755,4 +3787,1955 @@ body {
 .walk-timer-btn.save {
   background: var(--gradient-primary);
   color: white;
+}
+
+/* ============================================================
+   WoofSitter - Pet-Sitting Platform Styles
+   ============================================================ */
+
+/* ----- Home Page ----- */
+.sitter-page {
+  padding-bottom: 80px;
+}
+
+.sitter-top-actions {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  flex-wrap: wrap;
+}
+
+.sitter-bookings-btn,
+.sitter-map-btn,
+.sitter-become-btn {
+  flex: 1;
+  min-width: 140px;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sitter-bookings-btn:hover,
+.sitter-map-btn:hover,
+.sitter-become-btn:hover {
+  background: var(--glass-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.sitter-become-btn {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  color: white;
+  border: none;
+}
+
+.sitter-search-section {
+  padding: 0 16px 16px;
+}
+
+.sitter-section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.sitter-service-filters {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sitter-service-filters::-webkit-scrollbar {
+  display: none;
+}
+
+.sitter-filter-btn {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sitter-filter-active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.sitter-loading {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.sitter-empty {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.sitter-empty-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.sitter-empty p {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.sitter-list {
+  padding: 0 16px 16px;
+}
+
+.sitter-card {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sitter-card:hover {
+  background: var(--glass-hover);
+  transform: translateX(2px);
+  box-shadow: var(--shadow-md);
+}
+
+.sitter-card-photo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.sitter-card-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+}
+
+.sitter-card-center {
+  flex: 1;
+}
+
+.sitter-card-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.sitter-stars {
+  font-size: 12px;
+  color: #ffc107;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.sitter-rating-num {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-left: 4px;
+}
+
+.sitter-card-services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.sitter-service-badge {
+  font-size: 10px;
+  padding: 3px 8px;
+  background: var(--bg-elevated);
+  border-radius: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.sitter-garden-badge {
+  font-size: 10px;
+  padding: 3px 8px;
+  background: rgba(46, 213, 115, 0.2);
+  color: #2ed573;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.sitter-card-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.sitter-card-rate {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.sitter-card-arrow {
+  font-size: 20px;
+  color: var(--text-muted);
+}
+
+/* ----- Become Sitter Page ----- */
+.become-sitter-hero {
+  text-align: center;
+  padding: 32px 20px;
+  background: linear-gradient(135deg, rgba(240, 147, 251, 0.1), rgba(245, 87, 108, 0.1));
+  margin-bottom: 24px;
+}
+
+.become-sitter-hero-icon {
+  font-size: 56px;
+  margin-bottom: 12px;
+}
+
+.become-sitter-hero-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.become-sitter-hero-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.become-sitter-form {
+  padding: 0 16px 24px;
+}
+
+.become-sitter-section {
+  margin-bottom: 28px;
+}
+
+.become-sitter-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.become-sitter-section-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.become-sitter-textarea {
+  width: 100%;
+  padding: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+  transition: all 0.2s;
+}
+
+.become-sitter-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--bg-elevated);
+}
+
+.become-sitter-input-group {
+  margin-bottom: 16px;
+}
+
+.become-sitter-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.become-sitter-input {
+  width: 100%;
+  padding: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.become-sitter-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--bg-elevated);
+}
+
+.become-sitter-services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.become-sitter-service-card {
+  padding: 16px;
+  background: var(--bg-card);
+  border: 2px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.become-sitter-service-card:hover {
+  background: var(--glass-hover);
+  transform: translateY(-2px);
+}
+
+.become-sitter-service-selected {
+  border-color: var(--primary);
+  background: rgba(var(--primary-rgb), 0.1);
+}
+
+.become-sitter-service-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.become-sitter-service-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.become-sitter-service-desc {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.become-sitter-rates-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.become-sitter-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.become-sitter-checkbox-label:hover {
+  background: var(--glass-hover);
+}
+
+.become-sitter-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.become-sitter-submit-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  border: none;
+  border-radius: var(--radius-md);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 24px;
+}
+
+.become-sitter-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(245, 87, 108, 0.3);
+}
+
+.become-sitter-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.become-sitter-stats {
+  padding: 0 16px 24px;
+}
+
+.become-sitter-stats-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.become-sitter-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.become-sitter-stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+}
+
+.become-sitter-stat-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.become-sitter-stat-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* ----- Sitter Map Page ----- */
+.sitter-map-container {
+  margin: 0 16px 24px;
+  height: 300px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.sitter-map-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(72, 198, 239, 0.2), rgba(111, 134, 214, 0.2));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.sitter-map-icon {
+  font-size: 64px;
+  margin-bottom: 8px;
+}
+
+.sitter-map-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.sitter-map-user-marker {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  box-shadow: var(--shadow-md);
+}
+
+.sitter-map-list {
+  padding: 0 16px 24px;
+}
+
+.sitter-map-list-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.sitter-map-card {
+  background: var(--bg-card);
+  border: 2px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sitter-map-card:hover {
+  background: var(--glass-hover);
+  border-color: var(--primary);
+}
+
+.sitter-map-card-selected {
+  border-color: var(--primary);
+  background: rgba(var(--primary-rgb), 0.05);
+}
+
+.sitter-map-card-header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sitter-map-card-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+}
+
+.sitter-map-card-info {
+  flex: 1;
+}
+
+.sitter-map-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.sitter-map-stars {
+  font-size: 12px;
+  color: #ffc107;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.sitter-map-distance {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.sitter-map-card-rate {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.sitter-map-card-services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.sitter-map-service-badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  background: var(--bg-elevated);
+  border-radius: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.sitter-map-garden-badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  background: rgba(46, 213, 115, 0.2);
+  color: #2ed573;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.sitter-map-view-btn {
+  width: 100%;
+  padding: 10px;
+  background: var(--primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sitter-map-view-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* ----- Enhanced Sitter Cards with Badges ----- */
+.sitter-card-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.sitter-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: #2ed573;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sitter-top-badge {
+  font-size: 16px;
+}
+
+.sitter-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sitter-review-count {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* ----- Enhanced Profile Page ----- */
+.sitter-profile-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.sitter-profile-verified-badge {
+  padding: 4px 10px;
+  background: #2ed573;
+  color: white;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sitter-profile-top-badge {
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #ffc107, #ff9800);
+  color: white;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.sitter-profile-rating-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.sitter-profile-review-count {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.sitter-profile-location {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+/* ----- Booking & Review Styles ----- */
+.sitter-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.sitter-tab {
+  flex: 1;
+  padding: 10px 16px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sitter-tab-active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.sitter-bookings-list {
+  padding: 16px;
+}
+
+.sitter-booking-card {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.sitter-booking-header {
+  margin-bottom: 12px;
+}
+
+.sitter-booking-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.sitter-booking-dog-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.sitter-booking-status-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.sitter-booking-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sitter-booking-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sitter-booking-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.sitter-booking-value {
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.sitter-booking-notes {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--glass-border);
+}
+
+.sitter-booking-notes-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-top: 6px;
+}
+
+.sitter-booking-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.sitter-booking-confirm-btn {
+  flex: 1;
+  padding: 10px;
+  background: #2ed573;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sitter-booking-confirm-btn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.sitter-booking-cancel-btn {
+  flex: 1;
+  padding: 10px;
+  background: #ff4757;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sitter-booking-cancel-btn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.sitter-booking-form {
+  padding: 20px 16px;
+  background: var(--bg-elevated);
+  border-top: 2px solid var(--glass-border);
+  margin-top: 20px;
+}
+
+.sitter-booking-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.sitter-form-group {
+  margin-bottom: 16px;
+}
+
+.sitter-form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.sitter-form-select,
+.sitter-form-input,
+.sitter-form-textarea {
+  width: 100%;
+  padding: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.sitter-form-select:focus,
+.sitter-form-input:focus,
+.sitter-form-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--bg-elevated);
+}
+
+.sitter-form-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--primary);
+  border: none;
+  border-radius: var(--radius-md);
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sitter-form-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(var(--primary-rgb), 0.4);
+}
+
+.sitter-form-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ----- Profile Details ----- */
+.sitter-profile-header {
+  text-align: center;
+  padding: 24px 20px;
+  background: linear-gradient(135deg, rgba(240, 147, 251, 0.1), rgba(245, 87, 108, 0.1));
+}
+
+.sitter-profile-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 16px;
+  border: 4px solid white;
+  box-shadow: var(--shadow-md);
+}
+
+.sitter-profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: 700;
+  color: white;
+  margin: 0 auto 16px;
+  border: 4px solid white;
+  box-shadow: var(--shadow-md);
+}
+
+.sitter-profile-name {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.sitter-profile-stars {
+  font-size: 14px;
+  color: #ffc107;
+}
+
+.sitter-profile-rating-num {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-left: 4px;
+}
+
+.sitter-profile-details {
+  padding: 20px 16px;
+}
+
+.sitter-profile-section {
+  margin-bottom: 24px;
+}
+
+.sitter-profile-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.sitter-profile-bio {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.sitter-profile-experience {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.sitter-profile-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.sitter-profile-info-item {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  text-align: center;
+}
+
+.sitter-profile-info-label {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sitter-profile-info-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.sitter-profile-services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sitter-profile-service-badge {
+  padding: 8px 14px;
+  background: var(--bg-elevated);
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.sitter-reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sitter-review-card {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+}
+
+.sitter-review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.sitter-review-author {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.sitter-review-stars {
+  font-size: 12px;
+  color: #ffc107;
+}
+
+.sitter-review-comment {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.sitter-review-date {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.sitter-profile-cta {
+  position: fixed;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background: var(--bg);
+  border-top: 1px solid var(--glass-border);
+  z-index: 10;
+}
+
+.sitter-book-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  border: none;
+  border-radius: var(--radius-md);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sitter-book-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(245, 87, 108, 0.3);
+}
+
+/* ============================================================
+   WoofAdopt - Adoption Platform Styles
+   ============================================================ */
+
+/* ----- My Requests Page ----- */
+.adopt-requests-page {
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+.adopt-requests-content {
+  padding: 16px;
+}
+
+.adopt-requests-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.adopt-requests-loading-spinner {
+  font-size: 56px;
+  margin-bottom: 16px;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.adopt-requests-loading p {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.adopt-requests-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.adopt-requests-empty-icon {
+  font-size: 72px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.adopt-requests-empty-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.adopt-requests-empty-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.adopt-requests-browse-btn {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #eb3349, #f45c43);
+  border: none;
+  border-radius: var(--radius-md);
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.adopt-requests-browse-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(235, 51, 73, 0.4);
+}
+
+.adopt-requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.adopt-request-card {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.adopt-request-card:hover {
+  background: var(--glass-hover);
+  transform: translateX(2px);
+  box-shadow: var(--shadow-md);
+}
+
+.adopt-request-header {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.adopt-request-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.adopt-request-photo-placeholder {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  flex-shrink: 0;
+}
+
+.adopt-request-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.adopt-request-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.adopt-request-breed {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.adopt-request-shelter {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.adopt-request-status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.adopt-request-message {
+  padding: 12px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+}
+
+.adopt-request-message-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.adopt-request-message-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.adopt-request-date {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+/* ----- Adopt Home Page Improvements ----- */
+.adopt-top-actions {
+  display: flex;
+  gap: 10px;
+  padding: 16px;
+  margin-bottom: 8px;
+}
+
+.adopt-requests-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.adopt-requests-btn:hover {
+  background: var(--glass-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.adopt-shelters-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #eb3349, #f45c43);
+  border: none;
+  border-radius: var(--radius-md);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.adopt-shelters-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(235, 51, 73, 0.3);
+}
+
+/* ----- Enhanced Listing Cards ----- */
+.adopt-listing-favorite-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 5;
+}
+
+.adopt-listing-favorite-btn:hover {
+  transform: scale(1.1);
+  background: rgba(235, 51, 73, 0.8);
+}
+
+.adopt-listing-favorite-btn.favorited {
+  background: rgba(235, 51, 73, 0.9);
+  color: #fff;
+}
+
+/* ----- Success Stories Section ----- */
+.adopt-success-stories {
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.adopt-stories-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.adopt-stories-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.adopt-stories-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.adopt-story-card {
+  flex-shrink: 0;
+  width: 280px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.adopt-story-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.adopt-story-header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.adopt-story-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.adopt-story-info h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.adopt-story-info p {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.adopt-story-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.adopt-story-date {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+/* ========== WoofTrain Styles ========== */
+
+/* Achievements Page */
+.train-achievements-page {
+  min-height: 100vh;
+  background: var(--bg-deep);
+  padding-bottom: 80px;
+}
+
+.train-achievements-content {
+  padding: 16px;
+}
+
+.train-achievements-loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+}
+
+.train-achievements-loading-spinner {
+  font-size: 48px;
+  margin-bottom: 12px;
+  animation: bounce 1s infinite;
+}
+
+.train-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.train-stat-card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  padding: 16px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.train-stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.train-stat-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.train-stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.train-stat-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+.train-achievements-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+}
+
+.train-achievements-empty-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.train-achievements-empty-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.train-achievements-empty-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.train-achievements-browse-btn {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  border-radius: 12px;
+  padding: 14px 28px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.train-achievements-browse-btn:hover {
+  opacity: 0.9;
+}
+
+.train-achievements-section {
+  margin-bottom: 24px;
+}
+
+.train-achievements-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  padding-left: 4px;
+}
+
+.train-achievements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.train-achievement-card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  padding: 16px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  transition: transform 0.2s;
+}
+
+.train-achievement-card:hover {
+  transform: translateY(-2px);
+}
+
+.train-achievement-icon {
+  font-size: 40px;
+  flex-shrink: 0;
+}
+
+.train-achievement-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.train-achievement-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.train-achievement-description {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.train-achievement-date {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.train-achievement-rarity {
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* Training Home Page Enhancements */
+.train-home-header-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.train-achievements-link,
+.train-progress-link {
+  background: none;
+  border: 1px solid rgba(102, 126, 234, 0.4);
+  border-radius: 20px;
+  color: #667eea;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.train-achievements-link:hover,
+.train-progress-link:hover {
+  background: rgba(102, 126, 234, 0.1);
+  transform: translateY(-1px);
+}
+
+.train-difficulty-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.train-difficulty-debutant {
+  background: rgba(86, 171, 47, 0.15);
+  color: #56ab2f;
+}
+
+.train-difficulty-intermediaire {
+  background: rgba(245, 166, 35, 0.15);
+  color: #f5a623;
+}
+
+.train-difficulty-expert {
+  background: rgba(255, 71, 87, 0.15);
+  color: #ff4757;
+}
+
+.train-program-card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 12px;
+}
+
+.train-program-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.train-program-card-header {
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.train-program-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.train-program-card-meta {
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.train-program-card-description {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  padding: 0 14px 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.train-progress-bar-container {
+  background: rgba(255, 255, 255, 0.06);
+  height: 4px;
+  border-radius: 2px;
+  overflow: hidden;
+  margin: 0 14px 14px;
+}
+
+.train-progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transition: width 0.3s ease;
+}
+
+.train-completed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(86, 171, 47, 0.15);
+  color: #56ab2f;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 16px;
+  margin: 0 14px 14px;
+}
+
+/* Program Detail Page */
+.train-program-detail-icon {
+  font-size: 48px;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.train-program-detail-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.train-program-detail-difficulty {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.train-program-detail-description {
+  background: var(--bg-card);
+  border-radius: 14px;
+  border: 1px solid var(--glass-border);
+  padding: 14px;
+  margin-bottom: 20px;
+}
+
+.train-program-detail-description p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.train-step-card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  border: 1px solid var(--glass-border);
+  padding: 14px;
+  margin-bottom: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.train-step-card.completed {
+  border-color: rgba(86, 171, 47, 0.3);
+  background: rgba(86, 171, 47, 0.05);
+}
+
+.train-step-card.active {
+  border-color: rgba(102, 126, 234, 0.4);
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.train-step-number {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  flex-shrink: 0;
+}
+
+.train-step-card.completed .train-step-number {
+  background: rgba(86, 171, 47, 0.2);
+  color: #56ab2f;
+}
+
+.train-step-card.active .train-step-number {
+  background: rgba(102, 126, 234, 0.2);
+  color: #667eea;
+}
+
+.train-step-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.train-step-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.train-step-description {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.train-action-buttons {
+  display: flex;
+  gap: 10px;
+  padding: 16px;
+  position: sticky;
+  bottom: 80px;
+  background: var(--bg-deep);
+  border-top: 1px solid var(--glass-border);
+}
+
+.train-btn-primary,
+.train-btn-secondary {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.train-btn-primary {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+}
+
+.train-btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.train-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.train-btn-secondary {
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--glass-border);
+}
+
+.train-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Progress Page */
+.train-progress-section {
+  margin-bottom: 24px;
+}
+
+.train-progress-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  padding-left: 4px;
+}
+
+.train-progress-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-secondary);
+}
+
+.train-progress-empty-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.train-progress-empty-text {
+  font-size: 14px;
+  line-height: 1.5;
 }

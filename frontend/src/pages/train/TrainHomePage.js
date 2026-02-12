@@ -224,8 +224,29 @@ export default function TrainHomePage() {
       <SubAppHeader
         title="WoofTrain"
         icon="🎓"
-        gradient="linear-gradient(135deg, #56ab2f, #a8e063)"
+        gradient="linear-gradient(135deg, #667eea, #764ba2)"
       />
+
+      <div className="train-home-header-actions" style={{ padding: '0 16px', paddingBottom: '8px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+        <button
+          className="train-progress-link"
+          onClick={() => navigate('/train/progress')}
+        >
+          📚 Progrès
+        </button>
+        <button
+          className="train-achievements-link"
+          onClick={() => navigate('/train/achievements')}
+        >
+          🏆 Réussites
+        </button>
+        <button
+          className="train-achievements-link"
+          onClick={() => navigate('/train/tips')}
+        >
+          💡 Conseils
+        </button>
+      </div>
 
       <div style={styles.content}>
         {dogs.length > 1 && (
