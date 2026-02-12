@@ -3,173 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import SubAppHeader from '../../components/SubAppHeader';
 import api from '../../services/api';
 
-const styles = {
-  container: {
-    minHeight: '100vh',
-    background: 'var(--bg-deep, #0f0f1a)',
-    color: 'var(--text, #f0f0f5)',
-  },
-  profileHeader: {
-    padding: '24px 20px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '16px',
-  },
-  avatar: {
-    width: '80px',
-    height: '80px',
-    borderRadius: '50%',
-    objectFit: 'cover',
-    background: 'rgba(255,255,255,0.1)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '36px',
-    border: '3px solid rgba(255,255,255,0.2)',
-  },
-  avatarImg: {
-    width: '100%',
-    height: '100%',
-    borderRadius: '50%',
-    objectFit: 'cover',
-  },
-  name: {
-    fontSize: '20px',
-    fontWeight: '700',
-    color: 'var(--text, #f0f0f5)',
-  },
-  statsRow: {
-    display: 'flex',
-    gap: '32px',
-    justifyContent: 'center',
-  },
-  stat: {
-    textAlign: 'center',
-  },
-  statValue: {
-    fontSize: '18px',
-    fontWeight: '700',
-    color: 'var(--text, #f0f0f5)',
-  },
-  statLabel: {
-    fontSize: '12px',
-    color: 'var(--text-secondary, rgba(240,240,245,0.6))',
-    marginTop: '2px',
-  },
-  followBtn: {
-    padding: '10px 32px',
-    borderRadius: '24px',
-    border: 'none',
-    fontSize: '14px',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'all 0.2s',
-  },
-  followBtnFollow: {
-    background: 'linear-gradient(135deg, #667eea, #764ba2)',
-    color: '#fff',
-  },
-  followBtnUnfollow: {
-    background: 'rgba(255,255,255,0.1)',
-    color: 'var(--text, #f0f0f5)',
-    border: '1px solid var(--glass-border, rgba(255,255,255,0.12))',
-  },
-  postsGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '2px',
-    padding: '2px',
-  },
-  postThumb: {
-    aspectRatio: '1',
-    objectFit: 'cover',
-    width: '100%',
-    cursor: 'pointer',
-    background: 'rgba(255,255,255,0.06)',
-    display: 'block',
-  },
-  postThumbPlaceholder: {
-    aspectRatio: '1',
-    background: 'rgba(255,255,255,0.06)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '20px',
-    cursor: 'pointer',
-  },
-  expandedOverlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    background: 'rgba(0,0,0,0.85)',
-    zIndex: 100,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '20px',
-  },
-  expandedCard: {
-    background: 'var(--bg-card, rgba(255,255,255,0.06))',
-    borderRadius: '16px',
-    border: '1px solid var(--glass-border, rgba(255,255,255,0.12))',
-    backdropFilter: 'blur(20px)',
-    maxWidth: '500px',
-    width: '100%',
-    maxHeight: '80vh',
-    overflow: 'auto',
-  },
-  expandedImage: {
-    width: '100%',
-    maxHeight: '400px',
-    objectFit: 'cover',
-    borderRadius: '16px 16px 0 0',
-    display: 'block',
-  },
-  expandedContent: {
-    padding: '16px',
-    fontSize: '14px',
-    lineHeight: '1.5',
-  },
-  expandedStats: {
-    padding: '8px 16px 16px',
-    display: 'flex',
-    gap: '16px',
-    color: 'var(--text-secondary, rgba(240,240,245,0.6))',
-    fontSize: '13px',
-  },
-  closeBtn: {
-    position: 'absolute',
-    top: '16px',
-    right: '16px',
-    background: 'rgba(0,0,0,0.5)',
-    border: 'none',
-    color: '#fff',
-    width: '36px',
-    height: '36px',
-    borderRadius: '50%',
-    fontSize: '18px',
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  loading: {
-    textAlign: 'center',
-    padding: '40px',
-    color: 'var(--text-secondary, rgba(240,240,245,0.6))',
-    fontSize: '14px',
-  },
-  noPosts: {
-    textAlign: 'center',
-    padding: '40px 20px',
-    color: 'var(--text-secondary, rgba(240,240,245,0.6))',
-    fontSize: '14px',
-  },
-};
-
 export default function SocialProfilePage() {
   const navigate = useNavigate();
   const { userId } = useParams();
@@ -210,34 +43,40 @@ export default function SocialProfilePage() {
 
   if (loading) {
     return (
-      <div style={styles.container}>
+      <div className="social-page">
         <SubAppHeader
           title="Profil"
           icon="📸"
           gradient="linear-gradient(135deg, #667eea, #764ba2)"
           onBack={() => navigate('/social')}
         />
-        <div style={styles.loading}>Chargement...</div>
+        <div className="loading-screen">
+          <div className="loading-logo">📸</div>
+          <p>Chargement...</p>
+        </div>
       </div>
     );
   }
 
   if (!profile) {
     return (
-      <div style={styles.container}>
+      <div className="social-page">
         <SubAppHeader
           title="Profil"
           icon="📸"
           gradient="linear-gradient(135deg, #667eea, #764ba2)"
           onBack={() => navigate('/social')}
         />
-        <div style={styles.noPosts}>Profil introuvable</div>
+        <div className="empty-state">
+          <div className="empty-state-icon">😕</div>
+          <h2>Profil introuvable</h2>
+        </div>
       </div>
     );
   }
 
   return (
-    <div style={styles.container}>
+    <div className="social-page">
       <SubAppHeader
         title="Profil"
         icon="📸"
@@ -245,36 +84,34 @@ export default function SocialProfilePage() {
         onBack={() => navigate('/social')}
       />
 
-      <div style={styles.profileHeader}>
-        <div style={styles.avatar}>
-          {profile.avatar ? (
-            <img src={profile.avatar} alt="" style={styles.avatarImg} />
+      <div className="social-profile-header">
+        <div className="social-profile-avatar-container">
+          {profile.avatar_url ? (
+            <img src={profile.avatar_url} alt="" className="social-profile-avatar" />
           ) : (
-            '👤'
+            <div className="social-profile-avatar" style={{ background: 'var(--bg-elevated)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '40px' }}>👤</div>
           )}
         </div>
-        <div style={styles.name}>{profile.name || 'Utilisateur'}</div>
+        <div className="social-profile-name">{profile.full_name || 'Utilisateur'}</div>
 
-        <div style={styles.statsRow}>
-          <div style={styles.stat}>
-            <div style={styles.statValue}>{profile.posts_count || 0}</div>
-            <div style={styles.statLabel}>Posts</div>
+        <div className="social-profile-stats">
+          <div className="social-stat-item">
+            <div className="social-stat-value">{profile.post_count || 0}</div>
+            <div className="social-stat-label">Posts</div>
           </div>
-          <div style={styles.stat}>
-            <div style={styles.statValue}>{profile.followers_count || 0}</div>
-            <div style={styles.statLabel}>Abonnes</div>
+          <div className="social-stat-item">
+            <div className="social-stat-value">{profile.followers_count || 0}</div>
+            <div className="social-stat-label">Abonnés</div>
           </div>
-          <div style={styles.stat}>
-            <div style={styles.statValue}>{profile.following_count || 0}</div>
-            <div style={styles.statLabel}>Abonnements</div>
+          <div className="social-stat-item">
+            <div className="social-stat-value">{profile.following_count || 0}</div>
+            <div className="social-stat-label">Suivi(s)</div>
           </div>
         </div>
 
         <button
-          style={{
-            ...styles.followBtn,
-            ...(profile.is_following ? styles.followBtnUnfollow : styles.followBtnFollow),
-          }}
+          className={`walk-action-btn ${profile.is_following ? 'walk-action-secondary' : 'walk-action-primary'}`}
+          style={{ padding: '10px 32px', fontSize: '14px', width: 'auto', flexDirection: 'row', gap: '8px' }}
           onClick={handleFollow}
         >
           {profile.is_following ? 'Ne plus suivre' : 'Suivre'}
@@ -282,15 +119,17 @@ export default function SocialProfilePage() {
       </div>
 
       {(profile.posts || []).length === 0 ? (
-        <div style={styles.noPosts}>Aucun post</div>
+        <div className="empty-state" style={{ padding: '40px 20px' }}>
+          <p>Aucun post publié</p>
+        </div>
       ) : (
-        <div style={styles.postsGrid}>
+        <div className="social-posts-grid">
           {(profile.posts || []).map((post) => (
-            <div key={post.id} onClick={() => setExpandedPost(post)}>
+            <div key={post.id} onClick={() => setExpandedPost(post)} style={{ position: 'relative', overflow: 'hidden' }}>
               {post.photo_url ? (
-                <img src={post.photo_url} alt="" style={styles.postThumb} />
+                <img src={post.photo_url} alt="" className="social-post-thumb" />
               ) : (
-                <div style={styles.postThumbPlaceholder}>📝</div>
+                <div className="social-post-thumb" style={{ background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px' }}>📝</div>
               )}
             </div>
           ))}
@@ -298,21 +137,26 @@ export default function SocialProfilePage() {
       )}
 
       {expandedPost && (
-        <div style={styles.expandedOverlay} onClick={() => setExpandedPost(null)}>
+        <div className="modal-overlay" onClick={() => setExpandedPost(null)}>
           <div
-            style={{ ...styles.expandedCard, position: 'relative' }}
+            className="social-card"
+            style={{ width: '90%', maxWidth: '500px', maxHeight: '80vh', overflowY: 'auto' }}
             onClick={(e) => e.stopPropagation()}
           >
-            <button style={styles.closeBtn} onClick={() => setExpandedPost(null)}>
-              ✕
-            </button>
-            {expandedPost.photo_url && (
-              <img src={expandedPost.photo_url} alt="" style={styles.expandedImage} />
-            )}
+            <div style={{ position: 'relative' }}>
+              <button
+                style={{ position: 'absolute', top: 10, right: 10, background: 'rgba(0,0,0,0.5)', border: 'none', color: 'white', width: 30, height: 30, borderRadius: '50%', cursor: 'pointer', zIndex: 10 }}
+                onClick={() => setExpandedPost(null)}
+              >✕</button>
+              {expandedPost.photo_url && (
+                <img src={expandedPost.photo_url} alt="" className="social-post-image" />
+              )}
+            </div>
+
             {expandedPost.content && (
-              <div style={styles.expandedContent}>{expandedPost.content}</div>
+              <div className="social-post-content">{expandedPost.content}</div>
             )}
-            <div style={styles.expandedStats}>
+            <div className="social-actions" style={{ justifyContent: 'flex-start' }}>
               <span>❤️ {expandedPost.likes_count || 0}</span>
               <span>💬 {expandedPost.comments_count || 0}</span>
             </div>
@@ -322,3 +166,4 @@ export default function SocialProfilePage() {
     </div>
   );
 }
+

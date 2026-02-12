@@ -114,6 +114,11 @@ class Dog(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     owner = relationship("User", back_populates="dogs")
+    
+    # WoofHealth - Vet
+    vet_id = Column(Integer, ForeignKey("vet_clinics.id"), nullable=True)
+    vet = relationship("VetClinic")
+
 
 
 class Swipe(Base):
@@ -218,6 +223,23 @@ class VetAppointment(Base):
     dog = relationship("Dog")
 
 
+class VetClinic(Base):
+    __tablename__ = "vet_clinics"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    address = Column(String, nullable=False)
+    city = Column(String, nullable=False)
+    phone = Column(String, nullable=True)
+    email = Column(String, nullable=True)
+    website = Column(String, nullable=True)
+    latitude = Column(Float, nullable=True)
+    longitude = Column(Float, nullable=True)
+    rating = Column(Float, default=0)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
+
 # ============================================================
 # WoofWalk - Promenades & Activite
 # ============================================================
@@ -293,8 +315,33 @@ class FoodProduct(Base):
     ingredients = Column(Text, nullable=True)
     photo_url = Column(String, nullable=True)
     price = Column(Float, nullable=True)
+    price = Column(Float, nullable=True)
+    
+    # Pantry / Stock Management
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True) # If null, it's a global system product
+    kcal_per_kg = Column(Float, default=3500)
+    current_stock_g = Column(Float, default=0)
+    total_stock_g = Column(Float, default=0) # Capacity of the bag
+    low_stock_threshold_g = Column(Float, default=500)
+    
     created_at = Column(DateTime, default=datetime.utcnow)
 
+    user = relationship("User")
+
+
+class Meal(Base):
+    __tablename__ = "meals"
+
+    id = Column(Integer, primary_key=True, index=True)
+    dog_id = Column(Integer, ForeignKey("dogs.id"), nullable=False)
+    food_product_id = Column(Integer, ForeignKey("food_products.id"), nullable=True)
+    amount_g = Column(Float, nullable=False)
+    calories = Column(Integer, default=0)
+    meal_type = Column(String, default="meal") # meal, snack
+    timestamp = Column(DateTime, default=datetime.utcnow)
+    
+    dog = relationship("Dog")
+    food_product = relationship("FoodProduct")
 
 # ============================================================
 # WoofSitter - Garde & Pet-sitting

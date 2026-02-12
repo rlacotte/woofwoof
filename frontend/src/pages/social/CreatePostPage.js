@@ -5,103 +5,6 @@ import api from '../../services/api';
 
 const MAX_CHARS = 500;
 
-const styles = {
-  container: {
-    minHeight: '100vh',
-    background: 'var(--bg-deep, #0f0f1a)',
-    color: 'var(--text, #f0f0f5)',
-  },
-  form: {
-    padding: '20px 16px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '16px',
-  },
-  fieldGroup: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '6px',
-  },
-  label: {
-    fontSize: '13px',
-    fontWeight: '600',
-    color: 'var(--text-secondary, rgba(240,240,245,0.6))',
-    textTransform: 'uppercase',
-    letterSpacing: '0.5px',
-  },
-  textarea: {
-    background: 'var(--bg-card, rgba(255,255,255,0.06))',
-    border: '1px solid var(--glass-border, rgba(255,255,255,0.12))',
-    borderRadius: '12px',
-    padding: '14px',
-    fontSize: '15px',
-    color: 'var(--text, #f0f0f5)',
-    resize: 'vertical',
-    minHeight: '120px',
-    outline: 'none',
-    fontFamily: 'inherit',
-    lineHeight: '1.5',
-  },
-  charCount: {
-    fontSize: '12px',
-    textAlign: 'right',
-    color: 'var(--text-secondary, rgba(240,240,245,0.6))',
-  },
-  charCountOver: {
-    color: '#ff4d6d',
-  },
-  input: {
-    background: 'var(--bg-card, rgba(255,255,255,0.06))',
-    border: '1px solid var(--glass-border, rgba(255,255,255,0.12))',
-    borderRadius: '12px',
-    padding: '12px 14px',
-    fontSize: '14px',
-    color: 'var(--text, #f0f0f5)',
-    outline: 'none',
-  },
-  select: {
-    background: 'var(--bg-card, rgba(255,255,255,0.06))',
-    border: '1px solid var(--glass-border, rgba(255,255,255,0.12))',
-    borderRadius: '12px',
-    padding: '12px 14px',
-    fontSize: '14px',
-    color: 'var(--text, #f0f0f5)',
-    outline: 'none',
-    appearance: 'none',
-    cursor: 'pointer',
-  },
-  imagePreview: {
-    borderRadius: '12px',
-    maxHeight: '200px',
-    objectFit: 'cover',
-    border: '1px solid var(--glass-border, rgba(255,255,255,0.12))',
-  },
-  submitBtn: {
-    background: 'linear-gradient(135deg, #667eea, #764ba2)',
-    border: 'none',
-    borderRadius: '12px',
-    padding: '14px',
-    fontSize: '16px',
-    fontWeight: '600',
-    color: '#fff',
-    cursor: 'pointer',
-    marginTop: '8px',
-    transition: 'opacity 0.2s',
-  },
-  submitBtnDisabled: {
-    opacity: 0.5,
-    cursor: 'not-allowed',
-  },
-  error: {
-    background: 'rgba(255,77,109,0.15)',
-    border: '1px solid rgba(255,77,109,0.3)',
-    borderRadius: '10px',
-    padding: '10px 14px',
-    fontSize: '13px',
-    color: '#ff4d6d',
-  },
-};
-
 export default function CreatePostPage() {
   const navigate = useNavigate();
   const [content, setContent] = useState('');
@@ -143,7 +46,7 @@ export default function CreatePostPage() {
       });
       navigate('/social');
     } catch (err) {
-      setError('Erreur lors de la publication. Veuillez reessayer.');
+      setError('Erreur lors de la publication. Veuillez réessayer.');
       console.error('Failed to create post:', err);
     } finally {
       setSubmitting(false);
@@ -153,7 +56,7 @@ export default function CreatePostPage() {
   const isValid = content.trim().length > 0 && content.length <= MAX_CHARS;
 
   return (
-    <div style={styles.container}>
+    <div className="social-page">
       <SubAppHeader
         title="Nouveau post"
         icon="📸"
@@ -161,76 +64,105 @@ export default function CreatePostPage() {
         onBack={() => navigate('/social')}
       />
 
-      <form style={styles.form} onSubmit={handleSubmit}>
-        {error && <div style={styles.error}>{error}</div>}
+      <div className="create-post-container">
+        {error && (
+          <div style={{
+            background: 'rgba(255, 77, 109, 0.15)',
+            border: '1px solid rgba(255, 77, 109, 0.3)',
+            color: '#ff4d6d',
+            padding: '12px',
+            borderRadius: '12px',
+            marginBottom: '16px',
+            fontSize: '14px'
+          }}>
+            {error}
+          </div>
+        )}
 
-        <div style={styles.fieldGroup}>
-          <label style={styles.label}>Contenu</label>
+        <form onSubmit={handleSubmit}>
           <textarea
-            style={styles.textarea}
+            className="create-post-textarea"
             placeholder="Quoi de neuf avec votre compagnon ?"
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
-          <div
-            style={{
-              ...styles.charCount,
-              ...(content.length > MAX_CHARS ? styles.charCountOver : {}),
-            }}
-          >
+
+          <div style={{ textAlign: 'right', fontSize: '12px', color: content.length > MAX_CHARS ? '#ff4d6d' : 'var(--text-secondary)', marginBottom: '20px' }}>
             {content.length}/{MAX_CHARS}
           </div>
-        </div>
 
-        <div style={styles.fieldGroup}>
-          <label style={styles.label}>Photo (URL)</label>
-          <input
-            style={styles.input}
-            type="url"
-            placeholder="https://exemple.com/photo.jpg"
-            value={photoUrl}
-            onChange={(e) => setPhotoUrl(e.target.value)}
-          />
+          <div className="create-post-options">
+            <div className="create-post-option">
+              <span>📷</span>
+              <input
+                type="text"
+                placeholder="URL de l'image (optionnel)"
+                value={photoUrl}
+                onChange={(e) => setPhotoUrl(e.target.value)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'var(--text)',
+                  fontSize: '14px',
+                  width: '100%',
+                  outline: 'none'
+                }}
+              />
+            </div>
+
+            {dogs.length > 0 && (
+              <div className="create-post-option">
+                <span>🐾</span>
+                <select
+                  value={dogId}
+                  onChange={(e) => setDogId(e.target.value)}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--text)',
+                    fontSize: '14px',
+                    width: '100%',
+                    outline: 'none',
+                    appearance: 'none'
+                  }}
+                >
+                  <option value="" style={{ color: 'black' }}>Sélectionner un chien</option>
+                  {dogs.map((dog) => (
+                    <option key={dog.id} value={dog.id} style={{ color: 'black' }}>
+                      {dog.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
+
           {photoUrl && (
             <img
               src={photoUrl}
-              alt="Apercu"
-              style={styles.imagePreview}
+              alt="Aperçu"
+              className="create-post-preview"
               onError={(e) => (e.target.style.display = 'none')}
               onLoad={(e) => (e.target.style.display = 'block')}
             />
           )}
-        </div>
 
-        {dogs.length > 0 && (
-          <div style={styles.fieldGroup}>
-            <label style={styles.label}>Chien (optionnel)</label>
-            <select
-              style={styles.select}
-              value={dogId}
-              onChange={(e) => setDogId(e.target.value)}
-            >
-              <option value="">-- Aucun --</option>
-              {dogs.map((dog) => (
-                <option key={dog.id} value={dog.id}>
-                  {dog.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
-
-        <button
-          type="submit"
-          style={{
-            ...styles.submitBtn,
-            ...(!isValid || submitting ? styles.submitBtnDisabled : {}),
-          }}
-          disabled={!isValid || submitting}
-        >
-          {submitting ? 'Publication...' : 'Publier'}
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="walk-action-btn walk-action-primary"
+            style={{
+              width: '100%',
+              marginTop: '32px',
+              opacity: !isValid || submitting ? 0.5 : 1,
+              pointerEvents: !isValid || submitting ? 'none' : 'auto'
+            }}
+            disabled={!isValid || submitting}
+          >
+            {submitting ? 'Publication...' : 'Publier'}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
+

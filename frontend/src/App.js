@@ -20,6 +20,11 @@ import HubPage from './pages/HubPage';
 import HealthHomePage from './pages/health/HealthHomePage';
 import VaccinationsPage from './pages/health/VaccinationsPage';
 import AppointmentsPage from './pages/health/AppointmentsPage';
+import MedicationsPage from './pages/health/MedicationsPage';
+import HealthStatsPage from './pages/health/HealthStatsPage';
+import VetFinderPage from './pages/health/VetFinderPage';
+import HealthRecordsPage from './pages/health/HealthRecordsPage';
+import SymptomCheckerPage from './pages/health/SymptomCheckerPage';
 
 // WoofWalk
 import WalkHomePage from './pages/walk/WalkHomePage';
@@ -30,7 +35,7 @@ import WalkSpotsPage from './pages/walk/WalkSpotsPage';
 // WoofFood
 import FoodHomePage from './pages/food/FoodHomePage';
 import MealPlanPage from './pages/food/MealPlanPage';
-import FoodScanPage from './pages/food/FoodScanPage';
+import FoodPantryPage from './pages/food/FoodPantryPage';
 
 // WoofSitter
 import SitterHomePage from './pages/sitter/SitterHomePage';
@@ -43,6 +48,8 @@ import SitterMapPage from './pages/sitter/SitterMapPage';
 import SocialFeedPage from './pages/social/SocialFeedPage';
 import SocialProfilePage from './pages/social/SocialProfilePage';
 import CreatePostPage from './pages/social/CreatePostPage';
+import ExplorePage from './pages/social/ExplorePage';
+import MyFollowingPage from './pages/social/MyFollowingPage';
 
 // WoofShop
 import ShopHomePage from './pages/shop/ShopHomePage';
@@ -85,6 +92,13 @@ import PedigreePage from './pages/breed/PedigreePage';
 // WoofAlert
 import AlertHomePage from './pages/alert/AlertHomePage';
 import AlertReportPage from './pages/alert/AlertReportPage';
+
+// WoofRewards
+import RewardsHomePage from './pages/rewards/RewardsHomePage';
+import BadgesPage from './pages/rewards/BadgesPage';
+import LeaderboardPage from './pages/rewards/LeaderboardPage';
+import ChallengesPage from './pages/rewards/ChallengesPage';
+import RewardsShopPage from './pages/rewards/RewardsShopPage';
 
 import BottomNav from './components/BottomNav';
 import InstallPrompt from './components/InstallPrompt';
@@ -194,8 +208,13 @@ function App() {
 
             {/* ===== WoofHealth ===== */}
             <Route path="/health" element={<HealthHomePage />} />
+            <Route path="/health/records" element={<HealthRecordsPage />} />
             <Route path="/health/vaccinations" element={<VaccinationsPage />} />
             <Route path="/health/appointments" element={<AppointmentsPage />} />
+            <Route path="/health/medications" element={<MedicationsPage />} />
+            <Route path="/health/stats" element={<HealthStatsPage />} />
+            <Route path="/health/vets" element={<VetFinderPage />} />
+            <Route path="/health/symptoms" element={<SymptomCheckerPage />} />
 
             {/* ===== WoofWalk ===== */}
             <Route path="/walk" element={<WalkHomePage />} />
@@ -206,7 +225,7 @@ function App() {
             {/* ===== WoofFood ===== */}
             <Route path="/food" element={<FoodHomePage />} />
             <Route path="/food/meals" element={<MealPlanPage />} />
-            <Route path="/food/products" element={<FoodScanPage />} />
+            <Route path="/food/products" element={<FoodPantryPage />} />
 
             {/* ===== WoofSitter ===== */}
             <Route path="/sitter" element={<SitterHomePage />} />
@@ -219,6 +238,8 @@ function App() {
             <Route path="/social" element={<SocialFeedPage />} />
             <Route path="/social/profile/:userId" element={<SocialProfilePage />} />
             <Route path="/social/create" element={<CreatePostPage />} />
+            <Route path="/social/explore" element={<ExplorePage />} />
+            <Route path="/social/following" element={<MyFollowingPage />} />
 
             {/* ===== WoofShop ===== */}
             <Route path="/shop" element={<ShopHomePage />} />
@@ -261,6 +282,13 @@ function App() {
             {/* ===== WoofAlert ===== */}
             <Route path="/alert" element={<AlertHomePage />} />
             <Route path="/alert/report" element={<AlertReportPage />} />
+
+            {/* ===== WoofRewards ===== */}
+            <Route path="/rewards" element={<RewardsHomePage />} />
+            <Route path="/rewards/badges" element={<BadgesPage />} />
+            <Route path="/rewards/leaderboard" element={<LeaderboardPage />} />
+            <Route path="/rewards/challenges" element={<ChallengesPage />} />
+            <Route path="/rewards/shop" element={<RewardsShopPage />} />
 
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

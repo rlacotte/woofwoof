@@ -3,187 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import SubAppHeader from '../../components/SubAppHeader';
 import api from '../../services/api';
 
-const styles = {
-  container: {
-    minHeight: '100vh',
-    background: 'var(--bg-deep, #0f0f1a)',
-    color: 'var(--text, #f0f0f5)',
-  },
-  feed: {
-    padding: '16px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '16px',
-    paddingBottom: '80px',
-  },
-  postCard: {
-    background: 'var(--bg-card, rgba(255,255,255,0.06))',
-    borderRadius: '16px',
-    border: '1px solid var(--glass-border, rgba(255,255,255,0.12))',
-    backdropFilter: 'blur(20px)',
-    overflow: 'hidden',
-  },
-  postHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    padding: '14px 16px',
-    cursor: 'pointer',
-  },
-  avatar: {
-    width: '40px',
-    height: '40px',
-    borderRadius: '50%',
-    objectFit: 'cover',
-    background: 'rgba(255,255,255,0.1)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '18px',
-    flexShrink: 0,
-  },
-  headerInfo: {
-    flex: 1,
-  },
-  userName: {
-    fontWeight: '600',
-    fontSize: '14px',
-    color: 'var(--text, #f0f0f5)',
-  },
-  dogName: {
-    fontSize: '12px',
-    color: 'var(--text-secondary, rgba(240,240,245,0.6))',
-    marginTop: '2px',
-  },
-  postImage: {
-    width: '100%',
-    maxHeight: '400px',
-    objectFit: 'cover',
-    display: 'block',
-  },
-  postContent: {
-    padding: '12px 16px',
-    fontSize: '14px',
-    lineHeight: '1.5',
-    color: 'var(--text, #f0f0f5)',
-  },
-  postActions: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '20px',
-    padding: '8px 16px 14px',
-  },
-  actionBtn: {
-    background: 'none',
-    border: 'none',
-    color: 'var(--text-secondary, rgba(240,240,245,0.6))',
-    fontSize: '14px',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '6px',
-    cursor: 'pointer',
-    padding: '4px 0',
-  },
-  actionBtnActive: {
-    color: '#ff4d6d',
-  },
-  commentsSection: {
-    borderTop: '1px solid var(--glass-border, rgba(255,255,255,0.12))',
-    padding: '12px 16px',
-  },
-  comment: {
-    display: 'flex',
-    gap: '8px',
-    marginBottom: '10px',
-  },
-  commentAvatar: {
-    width: '28px',
-    height: '28px',
-    borderRadius: '50%',
-    background: 'rgba(255,255,255,0.1)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '12px',
-    flexShrink: 0,
-  },
-  commentBody: {
-    flex: 1,
-  },
-  commentUser: {
-    fontWeight: '600',
-    fontSize: '12px',
-    color: 'var(--text, #f0f0f5)',
-  },
-  commentText: {
-    fontSize: '13px',
-    color: 'var(--text-secondary, rgba(240,240,245,0.6))',
-    marginTop: '2px',
-  },
-  commentInputRow: {
-    display: 'flex',
-    gap: '8px',
-    marginTop: '8px',
-  },
-  commentInput: {
-    flex: 1,
-    background: 'rgba(255,255,255,0.06)',
-    border: '1px solid var(--glass-border, rgba(255,255,255,0.12))',
-    borderRadius: '20px',
-    padding: '8px 14px',
-    fontSize: '13px',
-    color: 'var(--text, #f0f0f5)',
-    outline: 'none',
-  },
-  commentSendBtn: {
-    background: 'linear-gradient(135deg, #667eea, #764ba2)',
-    border: 'none',
-    borderRadius: '50%',
-    width: '34px',
-    height: '34px',
-    color: '#fff',
-    fontSize: '14px',
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: 0,
-  },
-  fab: {
-    position: 'fixed',
-    bottom: '24px',
-    right: '20px',
-    width: '56px',
-    height: '56px',
-    borderRadius: '50%',
-    background: 'linear-gradient(135deg, #667eea, #764ba2)',
-    border: 'none',
-    color: '#fff',
-    fontSize: '24px',
-    cursor: 'pointer',
-    boxShadow: '0 4px 20px rgba(102,126,234,0.4)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 10,
-  },
-  loading: {
-    textAlign: 'center',
-    padding: '40px',
-    color: 'var(--text-secondary, rgba(240,240,245,0.6))',
-    fontSize: '14px',
-  },
-  empty: {
-    textAlign: 'center',
-    padding: '60px 20px',
-    color: 'var(--text-secondary, rgba(240,240,245,0.6))',
-  },
-  emptyIcon: {
-    fontSize: '48px',
-    marginBottom: '12px',
-  },
-};
-
 export default function SocialFeedPage() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
@@ -208,21 +27,26 @@ export default function SocialFeedPage() {
   };
 
   const handleLike = async (postId) => {
+    // Optimistic update
+    setPosts((prev) =>
+      prev.map((p) =>
+        p.id === postId
+          ? {
+            ...p,
+            liked_by_me: !p.liked_by_me,
+            likes_count: p.liked_by_me ? p.likes_count - 1 : p.likes_count + 1,
+            just_liked: !p.liked_by_me // Flag for animation
+          }
+          : p
+      )
+    );
+
     try {
       await api.request(`/social/posts/${postId}/like`, { method: 'POST' });
-      setPosts((prev) =>
-        prev.map((p) =>
-          p.id === postId
-            ? {
-                ...p,
-                liked: !p.liked,
-                likes_count: p.liked ? p.likes_count - 1 : p.likes_count + 1,
-              }
-            : p
-        )
-      );
     } catch (err) {
       console.error('Failed to like post:', err);
+      // Revert on error
+      loadFeed();
     }
   };
 
@@ -245,10 +69,10 @@ export default function SocialFeedPage() {
         prev.map((p) =>
           p.id === postId
             ? {
-                ...p,
-                comments: [...(p.comments || []), newComment],
-                comments_count: (p.comments_count || 0) + 1,
-              }
+              ...p,
+              comments: [...(p.comments || []), newComment],
+              comments_count: (p.comments_count || 0) + 1,
+            }
             : p
         )
       );
@@ -259,63 +83,89 @@ export default function SocialFeedPage() {
   };
 
   return (
-    <div style={styles.container}>
+    <div className="social-page">
       <SubAppHeader
         title="WoofSocial"
         icon="📸"
         gradient="linear-gradient(135deg, #667eea, #764ba2)"
       />
 
+      <div className="social-header-actions">
+        <button
+          className="social-quick-link"
+          onClick={() => navigate('/social/explore')}
+        >
+          🔍 Explorer
+        </button>
+        <button
+          className="social-quick-link"
+          onClick={() => navigate('/social/following')}
+        >
+          👥 Abonnements
+        </button>
+      </div>
+
       {loading ? (
-        <div style={styles.loading}>Chargement du fil...</div>
+        <div className="loading-screen" style={{ height: '60vh' }}>
+          <div className="loading-logo">📸</div>
+          <p>Chargement du fil...</p>
+        </div>
       ) : posts.length === 0 ? (
-        <div style={styles.empty}>
-          <div style={styles.emptyIcon}>📸</div>
-          <div>Aucun post pour le moment</div>
+        <div className="empty-state">
+          <div className="empty-state-icon">📸</div>
+          <h2>Aucun post</h2>
+          <p>Soyez le premier à partager un moment avec votre chien !</p>
         </div>
       ) : (
-        <div style={styles.feed}>
+        <div className="social-feed">
           {posts.map((post) => (
-            <div key={post.id} style={styles.postCard}>
+            <div key={post.id} className="social-card">
               <div
-                style={styles.postHeader}
+                className="social-card-header"
                 onClick={() => navigate(`/social/profile/${post.user_id}`)}
               >
-                <div style={styles.avatar}>
-                  {post.user_avatar ? (
-                    <img
-                      src={post.user_avatar}
-                      alt=""
-                      style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }}
-                    />
-                  ) : (
-                    '👤'
-                  )}
-                </div>
-                <div style={styles.headerInfo}>
-                  <div style={styles.userName}>{post.user_name || 'Utilisateur'}</div>
-                  {post.dog_name && <div style={styles.dogName}>🐾 {post.dog_name}</div>}
+                {post.user_avatar ? (
+                  <img
+                    src={post.user_avatar}
+                    alt=""
+                    className="social-avatar"
+                  />
+                ) : (
+                  <div className="social-avatar-placeholder">👤</div>
+                )}
+                <div className="social-header-info">
+                  <div className="social-username">{post.user_name || 'Utilisateur'}</div>
+                  {post.dog_name && <div className="social-dog-name">🐾 {post.dog_name}</div>}
                 </div>
               </div>
 
               {post.photo_url && (
-                <img src={post.photo_url} alt="" style={styles.postImage} />
+                <div style={{ position: 'relative' }} onDoubleClick={() => handleLike(post.id)}>
+                  <img src={post.photo_url} alt="" className="social-post-image" />
+                  {post.just_liked && (
+                    <div style={{
+                      position: 'absolute',
+                      top: '50%', left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      fontSize: '80px',
+                      animation: 'float 0.8s ease-out forwards',
+                      pointerEvents: 'none'
+                    }}>❤️</div>
+                  )}
+                </div>
               )}
 
-              {post.content && <div style={styles.postContent}>{post.content}</div>}
+              {post.content && <div className="social-post-content">{post.content}</div>}
 
-              <div style={styles.postActions}>
+              <div className="social-actions">
                 <button
-                  style={{
-                    ...styles.actionBtn,
-                    ...(post.liked ? styles.actionBtnActive : {}),
-                  }}
+                  className={`social-action-btn ${post.liked_by_me ? 'active' : ''}`}
                   onClick={() => handleLike(post.id)}
                 >
-                  {post.liked ? '❤️' : '🤍'} {post.likes_count || 0}
+                  {post.liked_by_me ? '❤️' : '🤍'} {post.likes_count || 0}
                 </button>
                 <button
-                  style={styles.actionBtn}
+                  className="social-action-btn"
                   onClick={() => toggleComments(post.id)}
                 >
                   💬 {post.comments_count || 0}
@@ -323,19 +173,22 @@ export default function SocialFeedPage() {
               </div>
 
               {expandedComments[post.id] && (
-                <div style={styles.commentsSection}>
+                <div className="social-comments-section">
                   {(post.comments || []).map((c, idx) => (
-                    <div key={c.id || idx} style={styles.comment}>
-                      <div style={styles.commentAvatar}>👤</div>
-                      <div style={styles.commentBody}>
-                        <div style={styles.commentUser}>{c.user_name || 'Utilisateur'}</div>
-                        <div style={styles.commentText}>{c.content}</div>
+                    <div key={c.id || idx} className="social-comment">
+                      <div className="social-comment-avatar-container">
+                        {/* Placeholder or real avatar logic if available in comment data */}
+                        <div className="social-comment-avatar" style={{ background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>👤</div>
+                      </div>
+                      <div className="social-comment-body">
+                        <div className="social-comment-user">{c.user_name || 'Utilisateur'}</div>
+                        <div className="social-comment-text">{c.content}</div>
                       </div>
                     </div>
                   ))}
-                  <div style={styles.commentInputRow}>
+                  <div className="social-comment-input-row">
                     <input
-                      style={styles.commentInput}
+                      className="social-comment-input"
                       placeholder="Ajouter un commentaire..."
                       value={commentTexts[post.id] || ''}
                       onChange={(e) =>
@@ -346,7 +199,7 @@ export default function SocialFeedPage() {
                       }}
                     />
                     <button
-                      style={styles.commentSendBtn}
+                      className="social-comment-send"
                       onClick={() => handleComment(post.id)}
                     >
                       ➤
@@ -359,9 +212,10 @@ export default function SocialFeedPage() {
         </div>
       )}
 
-      <button style={styles.fab} onClick={() => navigate('/social/create')}>
+      <button className="social-fab" onClick={() => navigate('/social/create')}>
         +
       </button>
     </div>
   );
 }
+
